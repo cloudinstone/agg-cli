@@ -1,0 +1,24 @@
+class Aag < Formula
+  desc "CLI for managing Antigravity IDE accounts locally"
+  homepage "https://github.com/__OWNER__/__REPO__"
+  version "__VERSION__"
+
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/__OWNER__/__REPO__/releases/download/v#{version}/aag-__VERSION__-aarch64-apple-darwin.tar.gz"
+      sha256 "__ARM_SHA__"
+    else
+      url "https://github.com/__OWNER__/__REPO__/releases/download/v#{version}/aag-__VERSION__-x86_64-apple-darwin.tar.gz"
+      sha256 "__INTEL_SHA__"
+    end
+  end
+
+  def install
+    bin.install "aag"
+    doc.install "README.md"
+  end
+
+  test do
+    assert_match "aag", shell_output("#{bin}/aag --help")
+  end
+end
